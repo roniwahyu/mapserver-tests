@@ -169,6 +169,7 @@ PASS...
         }        
     }
 
+    # With mapserver 6.0.0 when we do a geom filter and a maxFeatures=1 we don't reseive any features.
     def test_max_features(self):
         REQUETS = (
             ('postgis-point-auto', u'int', 2, self.FEATURE_RESULT_2),
@@ -239,8 +240,8 @@ PASS...
             self._assert_result_equals(content, self.RESULT % p)
 
 
+    # With mapserver 6.0.0 when we do a case insensitive request on an integer we have an SQL error.
     def test_case_sensitive(self):
-
         REQUETS = (
             ('postgis-point-auto', None, 'character', u'ABcéàè2', u''),
             ('postgis-point-auto', None, 'character', u'ABcéàè2', u'matchCase="true"'),
