@@ -47,31 +47,31 @@ boolean boolean);
 SELECT AddGeometryColumn('tests', 'polygon','the_geom',4326,'POLYGON',2);
 
 
-INSERT INTO tests.point VALUES (0, 0, 0.0, 'éàè0', '2000-10-19 10:23:54', TRUE,
+INSERT INTO tests.point VALUES (0, 0, 0.0, 'abCéàè0', '2000-10-19 10:23:54', TRUE,
     ST_GeomFromText('POINT (0 0)', 4326));
-INSERT INTO tests.point VALUES (1, 1, 1.1, 'éàè1', '2001-10-19 10:23:54', FALSE,
+INSERT INTO tests.point VALUES (1, 1, 1.1, 'abCéàè1', '2001-10-19 10:23:54', FALSE,
     ST_GeomFromText('POINT (1 1)', 4326));
-INSERT INTO tests.point VALUES (2, 2, 2.2, 'éàè2', '2002-10-19 10:23:54', FALSE,
+INSERT INTO tests.point VALUES (2, 2, 2.2, 'abCéàè2', '2002-10-19 10:23:54', FALSE,
     ST_GeomFromText('POINT (2 2)', 4326));
-INSERT INTO tests.point VALUES (3, 3, 3.3, 'éàè3', '2003-10-19 10:23:54', FALSE,
+INSERT INTO tests.point VALUES (3, 3, 3.3, 'abCéàè3', '2003-10-19 10:23:54', FALSE,
     ST_GeomFromText('POINT (3 3)', 4326));
 
-INSERT INTO tests.line VALUES (0, 0, 0.0, 'éàè0', '2000-10-19 10:23:54', TRUE,
+INSERT INTO tests.line VALUES (0, 0, 0.0, 'abCéàè0', '2000-10-19 10:23:54', TRUE,
     ST_GeomFromText('LINESTRING (0 0,5 5)', 4326));
-INSERT INTO tests.line VALUES (1, 1, 1.1, 'éàè1', '2001-10-19 10:23:54', FALSE,
+INSERT INTO tests.line VALUES (1, 1, 1.1, 'abCéàè1', '2001-10-19 10:23:54', FALSE,
     ST_GeomFromText('LINESTRING (1 1,5 5)', 4326));
-INSERT INTO tests.line VALUES (2, 2, 2.2, 'éàè2', '2002-10-19 10:23:54', FALSE,
+INSERT INTO tests.line VALUES (2, 2, 2.2, 'abCéàè2', '2002-10-19 10:23:54', FALSE,
     ST_GeomFromText('LINESTRING (2 2,5 5)', 4326));
-INSERT INTO tests.line VALUES (3, 3, 3.3, 'éàè3', '2003-10-19 10:23:54', FALSE,
+INSERT INTO tests.line VALUES (3, 3, 3.3, 'abCéàè3', '2003-10-19 10:23:54', FALSE,
     ST_GeomFromText('LINESTRING (3 3,5 5)', 4326));
 
-INSERT INTO tests.polygon VALUES (0, 0, 0.0, 'éàè0', '2000-10-19 10:23:54', TRUE,
+INSERT INTO tests.polygon VALUES (0, 0, 0.0, 'abCéàè0', '2000-10-19 10:23:54', TRUE,
     ST_GeomFromText('POLYGON ((0 0,5 5,6 6,0 0))', 4326));
-INSERT INTO tests.polygon VALUES (1, 1, 1.1, 'éàè1', '2001-10-19 10:23:54', FALSE,
+INSERT INTO tests.polygon VALUES (1, 1, 1.1, 'abCéàè1', '2001-10-19 10:23:54', FALSE,
     ST_GeomFromText('POLYGON ((1 1,5 5,6 6,1 1))', 4326));
-INSERT INTO tests.polygon VALUES (2, 2, 2.2, 'éàè2', '2002-10-19 10:23:54', FALSE,
+INSERT INTO tests.polygon VALUES (2, 2, 2.2, 'abCéàè2', '2002-10-19 10:23:54', FALSE,
     ST_GeomFromText('POLYGON ((2 2,5 5,6 6,2 2))', 4326));
-INSERT INTO tests.polygon VALUES (3, 3, 3.3, 'éàè3', '2003-10-19 10:23:54', FALSE,
+INSERT INTO tests.polygon VALUES (3, 3, 3.3, 'abCéàè3', '2003-10-19 10:23:54', FALSE,
     ST_GeomFromText('POLYGON ((3 3,5 5,6 6,3 3))', 4326));
 
 
@@ -79,3 +79,11 @@ GRANT SELECT ON TABLE spatial_ref_sys TO "www-data";
 GRANT ALL ON TABLE geometry_columns TO "www-data";
 GRANT ALL ON SCHEMA tests TO "www-data";
 GRANT ALL ON ALL TABLES IN SCHEMA tests TO "www-data";
+
+
+sudo -u postgres pg_dump -Fc tests > data/postgres.dump
+cd data
+sudo -u postgres pgsql2shp tests tests.point
+sudo -u postgres pgsql2shp tests tests.line
+sudo -u postgres pgsql2shp tests tests.polygon
+cd -
