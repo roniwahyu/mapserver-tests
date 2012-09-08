@@ -228,7 +228,7 @@ PASS...
         for r in REQUETS:
             log.info((r[0], r[1]))
             content = self._post(self.GETFEATURE_REQUEST % {
-                'maxfeatures': 10, # should works with 1
+                'maxfeatures': 1,
                 'query': self.GEOM_QUERY % {
                     'feature': r[0],
                     'poslist': r[1],
