@@ -66,7 +66,7 @@ class TestDescribeFeatureType(TestWFS):
           <element name="CHARACTER" type="Character"/>
           <element name="DATE" type="Character"/>
           <element name="BOOLEAN" type="Character"/>"""
-# should be removed ... <element name="DATE" type="Date"/>
+# should be removed ... <element name="DATE" type="Date"/>, <element name="boolean" type="Boolean"/>
 
     LAYERS = [
         ('postgis-point-auto', 'Point', ELEMENTS_AUTO),
