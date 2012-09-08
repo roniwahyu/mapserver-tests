@@ -6,7 +6,7 @@ class TestGetCapabilities(TestWFS):
     def test_GetCapabilities(self):
         response, content = self.http.request(self.url + \
             "REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.0.0")
-        self._assert_result_equals(content, """<?xml version='1.0' encoding="UTF-8" ?>
+        self._assert_result_equals(content, u"""<?xml version='1.0' encoding="UTF-8" ?>
 <WFS_Capabilities 
    version="1.0.0" 
    updateSequence="0" 
@@ -15,12 +15,12 @@ class TestGetCapabilities(TestWFS):
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-capabilities.xsd">
 
-<!-- MapServer version 6.3-dev OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG SUPPORTS=PROJ SUPPORTS=GD SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=CAIRO SUPPORTS=ICONV SUPPORTS=FRIBIDI SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS SUPPORTS=GEOS INPUT=JPEG INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+PASS...
 
 <Service>
   <Name>MapServer WFS</Name>
   <Title>Tests</Title>
-  <OnlineResource>http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;</OnlineResource>
+  <OnlineResource>http://example.com/ogc?</OnlineResource>
 </Service>
 
 <Capability>
@@ -28,12 +28,12 @@ class TestGetCapabilities(TestWFS):
     <GetCapabilities>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Get onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
       <DCPType>
         <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Post onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
     </GetCapabilities>
@@ -43,12 +43,12 @@ class TestGetCapabilities(TestWFS):
       </SchemaDescriptionLanguage>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Get onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
       <DCPType>
         <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Post onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
     </DescribeFeatureType>
@@ -58,12 +58,12 @@ class TestGetCapabilities(TestWFS):
       </ResultFormat>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Get onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
       <DCPType>
         <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
+          <Post onlineResource="http://example.com/ogc?" />
         </HTTP>
       </DCPType>
     </GetFeature>
