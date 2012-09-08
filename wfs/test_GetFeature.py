@@ -297,3 +297,34 @@ PASS...
                 self._assert_result_equals(content, self.RESULT % p)
             else:
                 self._assert_result_equals(content, self.RESULT_MISSING)
+
+
+    # With mapserver 6.0.3 when we do a request on two shapefile we reseive an error 500.
+    def test_multiple_feature_type(self):
+        REQUET = (
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'int', 2),
+            ('postgis-point', self.FEATURE_RESULT_2, 'int', 2),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'INT', 2),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'INT', 2),
+        )
+        query = ''
+        result = ''
+        for r in REQUET:
+            log.info((r[0], r[2], r[3]))
+            query += self.QUERY % {
+                'feature': r[0],
+                'function': u'EqualTo',
+                'arguments': '',
+                'property': r[2],
+                'value': r[3],
+            }
+            result += r[1]['features'] % {'feature': r[0] }
+        content = self._post(self.GETFEATURE_REQUEST % {
+            'maxfeatures': 10,
+            'query': query
+        })
+        self._assert_result_equals(content, self.RESULT % {
+            'lowerCorner': '2.000000 2.000000',
+            'upperCorner': '2.000000 2.000000',
+            'features': result
+        })
