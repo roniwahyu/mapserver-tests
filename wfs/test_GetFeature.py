@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
+import logging
+from copy import copy
 from wfs import TestWFS
+
+log = logging.getLogger(__name__)
 
 class TestGetFeature(TestWFS):
     GETFEATURE_REQUEST = u"""<?xml version='1.0' encoding="UTF-8" ?>
 <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" maxFeatures="%(maxfeatures)i">
 %(query)s
 </wfs:GetFeature>"""
-    QUERY = u"""<<wfs:Query typeName="feature:%(feature)s" srsName="EPSG:21781" xmlns:feature="http://mapserver.gis.umn.edu/mapserver">
+    QUERY = u"""<wfs:Query typeName="feature:%(feature)s" srsName="EPSG:4326" xmlns:feature="http://mapserver.gis.umn.edu/mapserver">
 <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
 <ogc:PropertyIs%(function)s %(arguments)s>
 <ogc:PropertyName>%(property)s</ogc:PropertyName>
@@ -15,175 +19,281 @@ class TestGetFeature(TestWFS):
 </ogc:PropertyIs%(function)s>
 </ogc:Filter>
 </wfs:Query>"""
+    GEOM_QUERY = u"""<wfs:Query typeName="feature:%(feature)s" srsName="EPSG:4326" xmlns:feature="http://mapserver.gis.umn.edu/mapserver">
+<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
+<ogc:Intersects>
+<ogc:PropertyName>the_geom</ogc:PropertyName>
+<gml:Polygon xmlns:gml="http://www.opengis.net/gml" srsName="EPSG:4326">
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>%(poslist)s</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</ogc:Intersects>
+</ogc:Filter>
+</wfs:Query>"""
 
-    def test_GetCapabilities(self):
-        response, content = self.http.request(self.url + \
-            "REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.0.0")
-        self._assert_result_equals(content, """<?xml version='1.0' encoding="UTF-8" ?>
-<WFS_Capabilities 
-   version="1.0.0" 
-   updateSequence="0" 
-   xmlns="http://www.opengis.net/wfs" 
-   xmlns:ogc="http://www.opengis.net/ogc" 
+    RESULT_MISSING = u"""<?xml version='1.0' encoding="UTF-8" ?>
+<wfs:FeatureCollection
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:gml="http://www.opengis.net/gml"
+   xmlns:wfs="http://www.opengis.net/wfs"
+   xmlns:ogc="http://www.opengis.net/ogc"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-capabilities.xsd">
+PASS...
+   <gml:boundedBy>
+      <gml:Null>missing</gml:Null>
+   </gml:boundedBy>
+</wfs:FeatureCollection>"""
+    RESULT = u"""<?xml version='1.0' encoding="UTF-8" ?>
+<wfs:FeatureCollection
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:gml="http://www.opengis.net/gml"
+   xmlns:wfs="http://www.opengis.net/wfs"
+   xmlns:ogc="http://www.opengis.net/ogc"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+PASS...
+      <gml:boundedBy>
+      	<gml:Envelope srsName="EPSG:4326">
+      		<gml:lowerCorner>%(lowerCorner)s</gml:lowerCorner>
+      		<gml:upperCorner>%(upperCorner)s</gml:upperCorner>
+      	</gml:Envelope>
+      </gml:boundedBy>%(features)s
+</wfs:FeatureCollection>
+"""
 
-<!-- MapServer version 6.3-dev OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG SUPPORTS=PROJ SUPPORTS=GD SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=CAIRO SUPPORTS=ICONV SUPPORTS=FRIBIDI SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS SUPPORTS=GEOS INPUT=JPEG INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+    FEATURE_RESULT = u"""
+    <gml:featureMember>
+      <ms:%%(feature)s gml:id="%%(feature)s.%(gid)i">
+        <gml:boundedBy>
+        	<gml:Envelope srsName="EPSG:4326">
+        		<gml:lowerCorner>%(lowerCorner)s</gml:lowerCorner>
+        		<gml:upperCorner>%(upperCorner)s</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:the_geom>
+          <gml:Point srsName="EPSG:4326">
+            <gml:pos>%(pos)s</gml:pos>
+          </gml:Point>
+        </ms:the_geom>
+        <ms:gid>%(gid)i</ms:gid>
+        <ms:int>%(int)i</ms:int>
+        <ms:real>%(real)s</ms:real>
+        <ms:character>%(character)s</ms:character>
+        <ms:date>%(date)i-10-19 10:23:54</ms:date>
+        <ms:boolean>%(boolean)s</ms:boolean>
+      </ms:%%(feature)s>
+    </gml:featureMember>"""
+    FEATURE_RESULT_2 = {
+        'lowerCorner': '2.000000 2.000000',
+        'upperCorner': '2.000000 2.000000',
+        'features': FEATURE_RESULT % {
+            'lowerCorner': '2.000000 2.000000',
+            'upperCorner': '2.000000 2.000000',
+            'pos': '2.000000 2.000000',
+            'gid': 2,
+            'int': 2,
+            'real': '2.2',
+            'character': u'abCéàè2',
+            'date': 2002,
+            'boolean': 'f',
+        }
+    }
+    FEATURE_RESULT_3 = {
+        'lowerCorner': '3.000000 3.000000',
+        'upperCorner': '3.000000 3.000000',
+        'features': FEATURE_RESULT % {
+            'lowerCorner': '3.000000 3.000000',
+            'upperCorner': '3.000000 3.000000',
+            'pos': '3.000000 3.000000',
+            'gid': 3,
+            'int': 3,
+            'real': '3.3',
+            'character': u'abCéàè3',
+            'date': 2003,
+            'boolean': 'f',
+        }        
+    }
 
-<Service>
-  <Name>MapServer WFS</Name>
-  <Title>Tests</Title>
-  <OnlineResource>http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;</OnlineResource>
-</Service>
 
-<Capability>
-  <Request>
-    <GetCapabilities>
-      <DCPType>
-        <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-      <DCPType>
-        <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-    </GetCapabilities>
-    <DescribeFeatureType>
-      <SchemaDescriptionLanguage>
-        <XMLSCHEMA/>
-      </SchemaDescriptionLanguage>
-      <DCPType>
-        <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-      <DCPType>
-        <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-    </DescribeFeatureType>
-    <GetFeature>
-      <ResultFormat>
-        <GML2/>
-      </ResultFormat>
-      <DCPType>
-        <HTTP>
-          <Get onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-      <DCPType>
-        <HTTP>
-          <Post onlineResource="http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&amp;" />
-        </HTTP>
-      </DCPType>
-    </GetFeature>
-  </Request>
-</Capability>
+    FEATURE_SHP_RESULT = u"""
+    <gml:featureMember>
+      <ms:%%(feature)s gml:id="%%(feature)s.%(gid)i">
+        <gml:boundedBy>
+        	<gml:Envelope srsName="EPSG:4326">
+        		<gml:lowerCorner>%(lowerCorner)s</gml:lowerCorner>
+        		<gml:upperCorner>%(upperCorner)s</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:the_geom>
+          <gml:Point srsName="EPSG:4326">
+            <gml:pos>%(pos)s</gml:pos>
+          </gml:Point>
+        </ms:the_geom>
+        <ms:INT>%(int)i</ms:INT>
+        <ms:REAL>%(real)s</ms:REAL>
+        <ms:CHARACTER>%(character)s</ms:CHARACTER>
+        <ms:DATE>%(date)i-10-19 10:23:54</ms:DATE>
+        <ms:BOOLEAN>%(boolean)s</ms:BOOLEAN>
+      </ms:%%(feature)s>
+    </gml:featureMember>"""
+    FEATURE_SHP_RESULT_2 = {
+        'lowerCorner': '2.000000 2.000000',
+        'upperCorner': '2.000000 2.000000',
+        'features': FEATURE_SHP_RESULT % {
+            'lowerCorner': '2.000000 2.000000',
+            'upperCorner': '2.000000 2.000000',
+            'pos': '2.000000 2.000000',
+            'gid': 2,
+            'int': 2,
+            'real': '2.2',
+            'character': u'abCéàè2',
+            'date': 2002,
+            'boolean': 'F',
+        }
+    }
+    FEATURE_SHP_RESULT_3 = {
+        'lowerCorner': '3.000000 3.000000',
+        'upperCorner': '3.000000 3.000000',
+        'features': FEATURE_SHP_RESULT % {
+            'lowerCorner': '3.000000 3.000000',
+            'upperCorner': '3.000000 3.000000',
+            'pos': '3.000000 3.000000',
+            'gid': 3,
+            'int': 3,
+            'real': '3.3',
+            'character': u'abCéàè3',
+            'date': 2003,
+            'boolean': 'F',
+        }        
+    }
 
-<FeatureTypeList>
-  <Operations>
-    <Query/>
-  </Operations>
-    <FeatureType>
-        <Name>postgis-point-auto</Name>
-        <Title>Layer éàè</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>postgis-line-auto</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>postgis-polygon-auto</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>postgis-point</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>postgis-line</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>postgis-polygon</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-point-auto</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-line-auto</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-polygon-auto</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-point</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-line</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-    <FeatureType>
-        <Name>shp-polygon</Name>
-        <Title>Layer</Title>
-        <SRS>EPSG:4326</SRS>
-        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
-    </FeatureType>
-</FeatureTypeList>
+    def test_max_features(self):
+        REQUETS = (
+            ('postgis-point-auto', u'int', 2, self.FEATURE_RESULT_2),
+            ('postgis-point-auto', u'int', 3, self.FEATURE_RESULT_3),
+            ('postgis-point-auto', u'real', '2.2', self.FEATURE_RESULT_2),
+            ('postgis-point-auto', u'real', '3.3', self.FEATURE_RESULT_3),
+            ('postgis-point-auto', u'character', u'abCéàè2', self.FEATURE_RESULT_2),
+            ('postgis-point-auto', u'character', u'abCéàè3', self.FEATURE_RESULT_3),
+            ('postgis-point', u'int', 2, self.FEATURE_RESULT_2),
+            ('postgis-point', u'int', 3, self.FEATURE_RESULT_3),
+            ('postgis-point', u'real', '2.2', self.FEATURE_RESULT_2),
+            ('postgis-point', u'real', '3.3', self.FEATURE_RESULT_3),
+            ('postgis-point', u'character', u'abCéàè2', self.FEATURE_RESULT_2),
+            ('postgis-point', u'character', u'abCéàè3', self.FEATURE_RESULT_3),
+            ('shp-point-auto', u'INT', 2, self.FEATURE_SHP_RESULT_2),
+            ('shp-point-auto', u'INT', 3, self.FEATURE_SHP_RESULT_3),
+            ('shp-point-auto', u'REAL', '2.2', self.FEATURE_SHP_RESULT_2),
+            ('shp-point-auto', u'REAL', '3.3', self.FEATURE_SHP_RESULT_3),
+            ('shp-point-auto', u'CHARACTER', u'abCéàè2', self.FEATURE_SHP_RESULT_2),
+            ('shp-point-auto', u'CHARACTER', u'abCéàè3', self.FEATURE_SHP_RESULT_3),
+            ('shp-point', u'INT', 2, self.FEATURE_SHP_RESULT_2),
+            ('shp-point', u'INT', 3, self.FEATURE_SHP_RESULT_3),
+            ('shp-point', u'REAL', '2.2', self.FEATURE_SHP_RESULT_2),
+            ('shp-point', u'REAL', '3.3', self.FEATURE_SHP_RESULT_3),
+            ('shp-point', u'CHARACTER', u'abCéàè2', self.FEATURE_SHP_RESULT_2),
+            ('shp-point', u'CHARACTER', u'abCéàè3', self.FEATURE_SHP_RESULT_3),
+        )
+        for r in REQUETS:
+            log.info((r[0], r[1], r[2]))
+            log.info((r[3]))
+            content = self._post(self.GETFEATURE_REQUEST % {
+                'maxfeatures': 10,
+                'query': self.QUERY % {
+                    'feature': r[0],
+                    'function': u'EqualTo',
+                    'arguments': u'',
+                    'property': r[1],
+                    'value': r[2],
+                }
+            })
+            p = copy(r[3])
+            p['features'] = p['features'] % {'feature': r[0] }
+            self._assert_result_equals(content, self.RESULT % p)
 
-<ogc:Filter_Capabilities>
-  <ogc:Spatial_Capabilities>
-    <ogc:Spatial_Operators>
-      <ogc:Equals/>
-      <ogc:Disjoint/>
-      <ogc:Touches/>
-      <ogc:Within/>
-      <ogc:Overlaps/>
-      <ogc:Crosses/>
-      <ogc:Intersect/>
-      <ogc:Contains/>
-      <ogc:DWithin/>
-      <ogc:BBOX/>
-    </ogc:Spatial_Operators>
-  </ogc:Spatial_Capabilities>
-  <ogc:Scalar_Capabilities>
-    <ogc:Logical_Operators />
-    <ogc:Comparison_Operators>
-      <ogc:Simple_Comparisons />
-      <ogc:Like />
-      <ogc:Between />
-    </ogc:Comparison_Operators>
-  </ogc:Scalar_Capabilities>
-</ogc:Filter_Capabilities>
 
-</WFS_Capabilities>""")
+        REQUETS = (
+            ('postgis-point-auto', u'1.5 1.5 1.5 2.5 2.5 2.5 2.5 1.5 1.5 1.5', self.FEATURE_RESULT_2),
+            ('postgis-point-auto', u'2.5 2.5 2.5 3.5 3.5 3.5 3.5 2.5 2.5 2.5', self.FEATURE_RESULT_3),
+            ('postgis-point', u'1.5 1.5 1.5 2.5 2.5 2.5 2.5 1.5 1.5 1.5', self.FEATURE_RESULT_2),
+            ('postgis-point', u'2.5 2.5 2.5 3.5 3.5 3.5 3.5 2.5 2.5 2.5', self.FEATURE_RESULT_3),
+            ('shp-point-auto', u'1.5 1.5 1.5 2.5 2.5 2.5 2.5 1.5 1.5 1.5', self.FEATURE_SHP_RESULT_2),
+            ('shp-point-auto', u'2.5 2.5 2.5 3.5 3.5 3.5 3.5 2.5 2.5 2.5', self.FEATURE_SHP_RESULT_3),
+            ('shp-point', u'1.5 1.5 1.5 2.5 2.5 2.5 2.5 1.5 1.5 1.5', self.FEATURE_SHP_RESULT_2),
+            ('shp-point', u'2.5 2.5 2.5 3.5 3.5 3.5 3.5 2.5 2.5 2.5', self.FEATURE_SHP_RESULT_3),
+
+        )
+        for r in REQUETS:
+            log.info((r[0], r[1]))
+            content = self._post(self.GETFEATURE_REQUEST % {
+                'maxfeatures': 10, # should works with 1
+                'query': self.GEOM_QUERY % {
+                    'feature': r[0],
+                    'poslist': r[1],
+                }
+            })
+            p = copy(r[2])
+            p['features'] = p['features'] % {'feature': r[0] }
+            self._assert_result_equals(content, self.RESULT % p)
+
+
+    def test_case_sensitive(self):
+
+        REQUETS = (
+            ('postgis-point-auto', None, 'character', u'ABcéàè2', u''),
+            ('postgis-point-auto', None, 'character', u'ABcéàè2', u'matchCase="true"'),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'character', u'ABcéàè2', u'matchCase="false"'),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'int', 2, u''),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'int', 2, u'matchCase="true"'),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'int', 2, u'matchCase="false"'),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'real', u'2.2', u''),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'real', u'2.2', u'matchCase="true"'),
+            ('postgis-point-auto', self.FEATURE_RESULT_2, 'real', u'2.2', u'matchCase="false"'),
+            ('postgis-point', None, 'character', u'ABcéàè2', u''),
+            ('postgis-point', None, 'character', u'ABcéàè2', u'matchCase="true"'),
+            ('postgis-point', self.FEATURE_RESULT_2, 'character', u'ABcéàè2', u'matchCase="false"'),
+            ('postgis-point', self.FEATURE_RESULT_2, 'int', 2, u''),
+            ('postgis-point', self.FEATURE_RESULT_2, 'int', 2, u'matchCase="true"'),
+            ('postgis-point', self.FEATURE_RESULT_2, 'int', 2, u'matchCase="false"'),
+            ('postgis-point', self.FEATURE_RESULT_2, 'real', u'2.2', u''),
+            ('postgis-point', self.FEATURE_RESULT_2, 'real', u'2.2', u'matchCase="true"'),
+            ('postgis-point', self.FEATURE_RESULT_2, 'real', u'2.2', u'matchCase="false"'),
+            ('shp-point-auto', None, 'CHARACTER', u'ABcéàè2', u''),
+            ('shp-point-auto', None, 'CHARACTER', u'ABcéàè2', u'matchCase="true"'),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'CHARACTER', u'ABcéàè2', u'matchCase="false"'),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'INT', 2, u''),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'INT', 2, u'matchCase="true"'),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'INT', 2, u'matchCase="false"'),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u''),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u'matchCase="true"'),
+            ('shp-point-auto', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u'matchCase="false"'),
+            ('shp-point', None, 'CHARACTER', u'ABcéàè2', u''),
+            ('shp-point', None, 'CHARACTER', u'ABcéàè2', u'matchCase="true"'),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'CHARACTER', u'ABcéàè2', u'matchCase="false"'),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'INT', 2, u''),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'INT', 2, u'matchCase="true"'),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'INT', 2, u'matchCase="false"'),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u''),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u'matchCase="true"'),
+            ('shp-point', self.FEATURE_SHP_RESULT_2, 'REAL', u'2.2', u'matchCase="false"'),
+        )
+        for r in REQUETS:
+            log.info((r[0], r[2], r[3], r[4]))
+            content = self._post(self.GETFEATURE_REQUEST % {
+                'maxfeatures': 10, # should works with 1
+                'query': self.QUERY % {
+                    'feature': r[0],
+                    'function': u'EqualTo',
+                    'arguments': r[4],
+                    'property': r[2],
+                    'value': r[3],
+                }
+            })
+            if r[1]:
+                p = copy(r[1])
+                p['features'] = p['features'] % {'feature': r[0] }
+                self._assert_result_equals(content, self.RESULT % p)
+            else:
+                self._assert_result_equals(content, self.RESULT_MISSING)

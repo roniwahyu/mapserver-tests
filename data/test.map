@@ -1,11 +1,13 @@
 MAP
   NAME "Tests"
   STATUS ON
+  EXTENT -10 -10 10 10
   
   WEB
     METADATA
         "ows_title" "Tests"
         "ows_encoding" "UTF-8"
+        "ows_onlineresource" "http://example.com/ogc"
         "wms_enable_request" "*"
         "wfs_enable_request" "*"
     END
@@ -174,7 +176,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
@@ -193,7 +195,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
@@ -212,7 +214,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
@@ -232,7 +234,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
@@ -256,7 +258,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
@@ -280,7 +282,7 @@ MAP
     STATUS ON
     METADATA
         "ows_title" "Layer"
-        "ows_featureid" "gid"
+        "ows_featureid" "int"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
         "gml_include_items" "all"
