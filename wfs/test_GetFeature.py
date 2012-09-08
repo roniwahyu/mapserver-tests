@@ -199,7 +199,6 @@ PASS...
         )
         for r in REQUETS:
             log.info((r[0], r[1], r[2]))
-            log.info((r[3]))
             content = self._post(self.GETFEATURE_REQUEST % {
                 'maxfeatures': 10,
                 'query': self.QUERY % {
@@ -283,7 +282,7 @@ PASS...
         for r in REQUETS:
             log.info((r[0], r[2], r[3], r[4]))
             content = self._post(self.GETFEATURE_REQUEST % {
-                'maxfeatures': 10, # should works with 1
+                'maxfeatures': 10,
                 'query': self.QUERY % {
                     'feature': r[0],
                     'function': u'EqualTo',
