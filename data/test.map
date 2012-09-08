@@ -1,0 +1,296 @@
+MAP
+  NAME "Tests"
+  STATUS ON
+  
+  WEB
+    METADATA
+        "ows_title" "Tests"
+        "ows_encoding" "UTF-8"
+        "wms_enable_request" "*"
+        "wfs_enable_request" "*"
+    END
+  END
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+
+  LAYER
+    NAME "postgis-point-auto"
+    TYPE POINT
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.point"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer éàè"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "point"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+  LAYER
+    NAME "postgis-line-auto"
+    TYPE LINE
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.line"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "line"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+  LAYER
+    NAME "postgis-polygon-auto"
+    TYPE POLYGON
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.polygon"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "polygon"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+
+  LAYER
+    NAME "postgis-point"
+    TYPE POINT
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.point"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "point"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+  LAYER
+    NAME "postgis-line"
+    TYPE LINE
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.line"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "line"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+  LAYER
+    NAME "postgis-polygon"
+    TYPE POLYGON
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE postgis
+    CONNECTION "user=www-data password=www-data dbname=tests host=localhost"
+    DATA "the_geom FROM tests.polygon"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "polygon"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+
+
+
+
+
+
+  LAYER
+    NAME "shp-point-auto"
+    TYPE POINT
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "point"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "point"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+  LAYER
+    NAME "shp-line-auto"
+    TYPE LINE
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "line"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "line"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+  LAYER
+    NAME "shp-polygon-auto"
+    TYPE POLYGON
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "polygon"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "polygon"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_types" "auto"
+    END
+  END
+
+
+  LAYER
+    NAME "shp-point"
+    TYPE POINT
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "point"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "point"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+  LAYER
+    NAME "shp-line"
+    TYPE LINE
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "line"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "line"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+  LAYER
+    NAME "shp-polygon"
+    TYPE POLYGON
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "polygon"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    METADATA
+        "ows_title" "Layer"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "polygon"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+  END
+
+END
