@@ -64,7 +64,7 @@ PASS...
     <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     <BoundingBox SRS="EPSG:4326"
                 minx="-10" miny="-10" maxx="10" maxy="10" />
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-point-auto</Name>
         <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
@@ -72,89 +72,89 @@ PASS...
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-line-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-polygon-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-point</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-line</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>postgis-polygon</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-point-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-line-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-polygon-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-point</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-line</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
                     minx="-10" miny="-10" maxx="10" maxy="10" />
     </Layer>
-    <Layer queryable="0">
+    <Layer queryable="1" opaque="0" cascaded="0">
         <Name>shp-polygon</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLonBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
         <BoundingBox SRS="EPSG:4326"
