@@ -82,67 +82,67 @@ PASS...
     </FeatureType>
     <FeatureType>
         <Name>postgis-line-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>postgis-polygon-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>postgis-point</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>postgis-line</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>postgis-polygon</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-point-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-line-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-polygon-auto</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-point</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-line</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
     <FeatureType>
         <Name>shp-polygon</Name>
-        <Title>Layer</Title>
+        <Title>Layer éàè</Title>
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
