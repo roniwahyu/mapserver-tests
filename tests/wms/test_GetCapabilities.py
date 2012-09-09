@@ -4,58 +4,103 @@ from tests import TestXML
 
 class TestGetCapabilities(TestXML):
     def test_GetCapabilities(self):
-        response, content = self.http.request(self.url + \
-            "REQUEST=GetCapabilities&SERVICE=WMS&VERSION=1.0.0")
+        content = self._get((
+            ('SERVICE', 'WMS'),
+            ('VERSION', '1.1.1'),
+            ('REQUEST', 'GetCapabilities'),
+        ))
         self._assert_result_equals(content, u"""<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
-<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.0.0/capabilities_1_0_0.dtd"
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.1.1/WMS_MS_Capabilities.dtd"
  [
  <!ELEMENT VendorSpecificCapabilities EMPTY>
  ]>  <!-- end of DOCTYPE declaration -->
 
-<WMT_MS_Capabilities version="1.0.0">
+<WMT_MS_Capabilities version="1.1.1">
 
 PASS...
 
 <Service>
-  <Name>GetMap</Name>
+  <Name>OGC:WMS</Name>
   <Title>Tests</Title>
-  <OnlineResource>http://example.com/ogc?</OnlineResource>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/>
+  <ContactInformation>
+  </ContactInformation>
 </Service>
 
 <Capability>
   <Request>
-    <Map>
-      <Format><GIF /><PNG /><JPEG /><SVG /></Format>
+    <GetCapabilities>
+      <Format>application/vnd.ogc.wms_xml</Format>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://example.com/ogc?" />
-          <Post onlineResource="http://example.com/ogc?" />
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
         </HTTP>
       </DCPType>
-    </Map>
-    <Capabilities>
-      <Format><WMS_XML /></Format>
+    </GetCapabilities>
+    <GetMap>
+      <Format>image/png</Format>
+      <Format>image/jpeg</Format>
+      <Format>image/gif</Format>
+      <Format>image/png; mode=8bit</Format>
+      <Format>application/x-pdf</Format>
+      <Format>image/svg+xml</Format>
+      <Format>image/tiff</Format>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://example.com/ogc?" />
-          <Post onlineResource="http://example.com/ogc?" />
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
         </HTTP>
       </DCPType>
-    </Capabilities>
-    <FeatureInfo>
-      <Format><MIME /><GML.1 /></Format>
+    </GetMap>
+    <GetFeatureInfo>
+      <Format>text/plain</Format>
+      <Format>application/vnd.ogc.gml</Format>
       <DCPType>
         <HTTP>
-          <Get onlineResource="http://example.com/ogc?" />
-          <Post onlineResource="http://example.com/ogc?" />
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
         </HTTP>
       </DCPType>
-    </FeatureInfo>
+    </GetFeatureInfo>
+    <DescribeLayer>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
+        </HTTP>
+      </DCPType>
+    </DescribeLayer>
+    <GetLegendGraphic>
+      <Format>image/png</Format>
+      <Format>image/jpeg</Format>
+      <Format>image/gif</Format>
+      <Format>image/png; mode=8bit</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetLegendGraphic>
+    <GetStyles>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://example.com/ogc?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetStyles>
   </Request>
   <Exception>
-    <Format><BLANK /><INIMAGE /><WMS_XML /></Format>
+    <Format>application/vnd.ogc.se_xml</Format>
+    <Format>application/vnd.ogc.se_inimage</Format>
+    <Format>application/vnd.ogc.se_blank</Format>
   </Exception>
   <VendorSpecificCapabilities />
+  <UserDefinedSymbolization SupportSLD="1" UserLayer="0" UserStyle="1" RemoteWFS="0"/>
   <Layer>
     <Name>Tests</Name>
     <Title>Tests</Title>
