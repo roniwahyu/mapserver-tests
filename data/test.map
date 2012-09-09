@@ -4,6 +4,7 @@ MAP
   EXTENT -10 -10 10 10
   
   WEB
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
         "ows_title" "Tests"
         "ows_encoding" "UTF-8"
@@ -28,6 +29,7 @@ MAP
     DATA "the_geom FROM tests.point"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
         "ows_title" "Layer éàè"
         "ows_featureid" "gid"
@@ -49,8 +51,9 @@ MAP
     DATA "the_geom FROM tests.line"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "gid"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
@@ -70,8 +73,9 @@ MAP
     DATA "the_geom FROM tests.polygon"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "gid"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
@@ -92,8 +96,9 @@ MAP
     DATA "the_geom FROM tests.point"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "gid"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
@@ -118,8 +123,9 @@ MAP
     DATA "the_geom FROM tests.line"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "gid"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
@@ -144,8 +150,9 @@ MAP
     DATA "the_geom FROM tests.polygon"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "gid"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
@@ -174,8 +181,9 @@ MAP
     DATA "point"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
@@ -193,8 +201,9 @@ MAP
     DATA "line"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
@@ -212,8 +221,9 @@ MAP
     DATA "polygon"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
@@ -232,8 +242,9 @@ MAP
     DATA "point"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
@@ -256,8 +267,9 @@ MAP
     DATA "line"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "line"
         "ows_geometries" "the_geom"
@@ -280,8 +292,9 @@ MAP
     DATA "polygon"
     EXTENT -10 -10 10 10
     STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
-        "ows_title" "Layer"
+        "ows_title" "Layer éàè"
         "ows_featureid" "int"
         "ows_the_geom_type" "polygon"
         "ows_geometries" "the_geom"
