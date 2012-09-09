@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from wfs import TestWFS
+from tests import TestXML
 
-class TestGetCapabilities(TestWFS):
+class TestGetCapabilities(TestXML):
     def test_GetCapabilities(self):
         response, content = self.http.request(self.url + \
             "REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.0.0")

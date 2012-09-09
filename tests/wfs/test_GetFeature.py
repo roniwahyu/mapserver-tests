@@ -2,11 +2,11 @@
 
 import logging
 from copy import copy
-from wfs import TestWFS
+from tests import TestXML
 
 log = logging.getLogger(__name__)
 
-class TestGetFeature(TestWFS):
+class TestGetFeature(TestXML):
     GETFEATURE_REQUEST = u"""<?xml version='1.0' encoding="UTF-8" ?>
 <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" maxFeatures="%(maxfeatures)i">
 %(query)s
