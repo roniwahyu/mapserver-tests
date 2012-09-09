@@ -18,6 +18,14 @@ class TestXML(TestCase):
         self.assertEquals(int(response['status']), 200)
 #        log.info(content)
         return content
+        
+    def _get(self, query):
+#        log.info(self.url + '&'.join(('%s=%s'%v for v in query)))
+        response, content = self.http.request(self.url + \
+                '&'.join(('%s=%s' % v for v in query)))
+        self.assertEquals(int(response['status']), 200)
+#        log.info(content)
+        return content
 
     def _assert_result_equals(self, content, value):
 #        log.info(content)

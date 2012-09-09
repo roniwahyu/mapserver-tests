@@ -4,8 +4,11 @@ from tests import TestXML
 
 class TestGetCapabilities(TestXML):
     def test_GetCapabilities(self):
-        response, content = self.http.request(self.url + \
-            "REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.0.0")
+        content = self._get((
+            ('SERVICE', 'WFS'),
+            ('VERSION', '1.0.0'),
+            ('REQUEST', 'GetCapabilities'),
+        ))
         self._assert_result_equals(content, u"""<?xml version='1.0' encoding="UTF-8" ?>
 <WFS_Capabilities 
    version="1.0.0" 
