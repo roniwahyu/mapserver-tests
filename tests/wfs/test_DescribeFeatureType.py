@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from wfs import TestWFS
+from tests import TestXML
 
 log = logging.getLogger(__name__)
 
-class TestDescribeFeatureType(TestWFS):
+class TestDescribeFeatureType(TestXML):
     DESCRIBE_FEATURE_TYPE = """<?xml version='1.0' encoding="UTF-8" ?>
 <schema
    targetNamespace="http://mapserver.gis.umn.edu/mapserver" 

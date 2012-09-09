@@ -6,7 +6,7 @@ from unittest import TestCase
 
 log = logging.getLogger(__name__)
 
-class TestWFS(TestCase):
+class TestXML(TestCase):
     url = "http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
 #    url = "http://localhost/mapserv603-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
     http = httplib2.Http()
