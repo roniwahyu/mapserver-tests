@@ -149,6 +149,12 @@ PASS...
         <SRS>EPSG:4326</SRS>
         <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
     </FeatureType>
+    <FeatureType>
+        <Name>wfs-point</Name>
+        <Title>Layer éàè</Title>
+        <SRS>EPSG:4326</SRS>
+        <LatLongBoundingBox minx="-10" miny="-10" maxx="10" maxy="10" />
+    </FeatureType>
 </FeatureTypeList>
 
 <ogc:Filter_Capabilities>

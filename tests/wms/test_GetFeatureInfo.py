@@ -114,14 +114,14 @@ class TestGetFeature(TestXML):
                 ('REQUEST', 'GetFeatureInfo'),
                 ('LAYERS', r[0]),
                 ('QUERY_LAYERS', r[0]),
-                ('BBOX', '1,1,3,3'),
+                ('BBOX', '1.99,1.99,2.01,2.01'),
                 ('FEATURE_COUNT', '1'),
-                ('HEIGHT', '200'),
-                ('WIDTH', '200'),
+                ('HEIGHT', '500'),
+                ('WIDTH', '500'),
                 ('INFO_FORMAT', 'application/vnd.ogc.gml'),
                 ('SRS', 'EPSG:4326'),
-                ('X', '100'),
-                ('Y', '100')
+                ('X', '250'),
+                ('Y', '250')
             ))
             self._assert_result_equals(content, self.RESULT % {
                 'features':r[1] % { 'layer': r[0] }
@@ -132,14 +132,14 @@ class TestGetFeature(TestXML):
                 ('REQUEST', 'GetFeatureInfo'),
                 ('LAYERS', r[0]),
                 ('QUERY_LAYERS', r[0]),
-                ('BBOX', '1,1,3,3'),
+                ('BBOX', '1.99,1.99,2.01,2.01'),
                 ('FEATURE_COUNT', '1'),
-                ('HEIGHT', '2000'),
-                ('WIDTH', '2000'),
+                ('HEIGHT', '500'),
+                ('WIDTH', '500'),
                 ('INFO_FORMAT', 'application/vnd.ogc.gml'),
                 ('SRS', 'EPSG:4326'),
-                ('X', '1500'),
-                ('Y', '1500')
+                ('X', '500'),
+                ('Y', '0')
             ))
             self._assert_result_equals(content, self.RESULT % {
                 'features': ''
@@ -161,14 +161,14 @@ class TestGetFeature(TestXML):
                 ('REQUEST', 'GetFeatureInfo'),
                 ('LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point'),
                 ('QUERY_LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point'),
-                ('BBOX', '1,1,3,3'),
+                ('BBOX', '1.99,1.99,2.01,2.01'),
                 ('FEATURE_COUNT', '10'),
-                ('HEIGHT', '200'),
-                ('WIDTH', '200'),
+                ('HEIGHT', '500'),
+                ('WIDTH', '500'),
                 ('INFO_FORMAT', 'application/vnd.ogc.gml'),
                 ('SRS', 'EPSG:4326'),
-                ('X', '100'),
-                ('Y', '100')
+                ('X', '250'),
+                ('Y', '250')
             ))
             features = ''
             features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point-auto' }
