@@ -18,7 +18,7 @@ class TestGetCapabilities(TestXML):
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-capabilities.xsd">
 
-PASS...
+
 
 <Service>
   <Name>MapServer WFS</Name>
