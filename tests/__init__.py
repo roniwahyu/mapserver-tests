@@ -18,7 +18,7 @@ class TestXML(TestCase):
 #        log.info(body)
         response, content = self.http.request(self.url, method='POST', body=body.encode('utf-8'));
         self.assertEquals(int(response['status']), 200)
-        log.info(content)
+#        log.info(content)
         return content
 
     def _get(self, query):

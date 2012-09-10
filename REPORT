@@ -10,5 +10,5 @@ What I found what I create thoses tests.
 
 - The GetFeatureInfo returns invisible features if the scale is between LAYER limits but not on CLASS limits.
 
-- The SCALE isn't pass throw WMS client for WMS/GetLegentGraphic request #issue ???.
+- The SCALE isn't pass throw WMS client for WMS/GetLegentGraphic request #4452.
 
