@@ -13,11 +13,11 @@ class TestGetCapabilities(TestXML):
 <!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.1.1/WMS_MS_Capabilities.dtd"
  [
  <!ELEMENT VendorSpecificCapabilities EMPTY>
- ]>  <!-- end of DOCTYPE declaration -->
+ ]>
 
 <WMT_MS_Capabilities version="1.1.1">
 
-PASS...
+
 
 <Service>
   <Name>OGC:WMS</Name>

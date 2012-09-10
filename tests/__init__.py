@@ -2,6 +2,7 @@
 
 import logging
 import httplib2
+import re
 from unittest import TestCase
 
 log = logging.getLogger(__name__)
@@ -10,6 +11,7 @@ class TestXML(TestCase):
     url = "http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
 #    url = "http://localhost/mapserv603-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
     http = httplib2.Http()
+    _re = re.compile("<!-- .* -->")
 
     def _post(self, body):
 #        log.info(self.url)
@@ -35,4 +37,4 @@ class TestXML(TestCase):
 #            log.info(test[0])
 #            log.info(test[1])
             if test[0] != 'PASS...':
-                self.assertEquals(test[0].strip(), test[1].strip())
+                self.assertEquals(test[0].strip(), self._re.sub('', test[1]).strip())
