@@ -1,0 +1,14 @@
+What I found what I create thoses tests.
+
+- Autodetect types don't works for Postgres boolean type.
+
+- Autodetect types don't works for shapfile date and boolean types (supported on shapfile ?).
+
+- We can't request a WMS/GetFeatureInfo on WMS client and other layer.
+
+- We can't have a layer that mix WMS/MFS client.
+
+- The GetFeatureInfo returns invisible features if the scale is between LAYER limits but not on CLASS limits.
+
+- The SCALE isn't pass throw WMS client for WMS/GetLegentGraphic request #issue ???.
+
