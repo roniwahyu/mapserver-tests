@@ -22,10 +22,10 @@ class TestGetLegendGraphic(TestXML):
             { 'layer': 'postgis-point', 'scale': 10000, 'result': self.LEGEND_1 },
             { 'layer': 'postgis-point', 'scale': 100000, 'result': self.LEGEND_0 },
             { 'layer': 'postgis-point', 'scale': 1000000, 'result': self.LEGEND_0 },
-#            { 'layer': 'wms-point', 'scale': 1000, 'result': self.LEGEND_0 }, TODO assign issue
+            { 'layer': 'wms-point', 'scale': 1000, 'result': self.LEGEND_0 },
             { 'layer': 'wms-point', 'scale': 10000, 'result': self.LEGEND_1 },
-#            { 'layer': 'wms-point', 'scale': 100000, 'result': self.LEGEND_0 }, TODO assign issue
-#            { 'layer': 'wms-point', 'scale': 1000000, 'result': self.LEGEND_0 }, TODO assign issue
+            { 'layer': 'wms-point', 'scale': 100000, 'result': self.LEGEND_0 },
+            { 'layer': 'wms-point', 'scale': 1000000, 'result': self.LEGEND_0 },
             { 'layer': 'wfs-point', 'scale': 1000, 'result': self.LEGEND_0 },
             { 'layer': 'wfs-point', 'scale': 10000, 'result': self.LEGEND_1 },
             { 'layer': 'wfs-point', 'scale': 100000, 'result': self.LEGEND_0 },
