@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 class TestCascade(TestXML):
     RESULT = u"""<?xml version="1.0" encoding="UTF-8"?>
 
-<msGMLOutput 
+<msGMLOutput
 	 xmlns:gml="http://www.opengis.net/gml"
 	 xmlns:xlink="http://www.w3.org/1999/xlink"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -37,7 +37,7 @@ class TestCascade(TestXML):
 </msGMLOutput>"""
     SHP_RESULT = u"""<?xml version="1.0" encoding="UTF-8"?>
 
-<msGMLOutput 
+<msGMLOutput
 	 xmlns:gml="http://www.opengis.net/gml"
 	 xmlns:xlink="http://www.w3.org/1999/xlink"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -64,7 +64,7 @@ class TestCascade(TestXML):
 </msGMLOutput>"""
     NORESULT = u"""<?xml version="1.0" encoding="UTF-8"?>
 
-<msGMLOutput 
+<msGMLOutput
 	 xmlns:gml="http://www.opengis.net/gml"
 	 xmlns:xlink="http://www.w3.org/1999/xlink"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -134,7 +134,7 @@ class TestCascade(TestXML):
             self.assertEquals('PNG', content[1:4])
             self.assertEquals(q['len'], len(content))
             self.assertEquals(q['md5'], md5(content).hexdigest())
-        
+
 
     def test_GetFeaturesInfo(self):
         QUERY = (

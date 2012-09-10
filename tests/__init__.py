@@ -10,15 +10,15 @@ class TestXML(TestCase):
     url = "http://localhost/mapserv-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
 #    url = "http://localhost/mapserv603-tests?map=/home/sbrunner/workspace/mapserver-wfs-tests/data/test.map&"
     http = httplib2.Http()
-    
+
     def _post(self, body):
 #        log.info(self.url)
 #        log.info(body)
         response, content = self.http.request(self.url, method='POST', body=body.encode('utf-8'));
         self.assertEquals(int(response['status']), 200)
-#        log.info(content)
+        log.info(content)
         return content
-        
+
     def _get(self, query):
 #        log.info(self.url + '&'.join(('%s=%s'%v for v in query)))
         response, content = self.http.request(self.url + \
@@ -35,4 +35,4 @@ class TestXML(TestCase):
 #            log.info(test[0])
 #            log.info(test[1])
             if test[0] != 'PASS...':
-                self.assertEquals(test[0], test[1])
+                self.assertEquals(test[0].strip(), test[1].strip())
