@@ -18,6 +18,15 @@ MAP
     "init=epsg:4326"
   END
 
+  SYMBOL
+    NAME "circle"
+    TYPE ellipse
+    POINTS
+      1 1
+    END
+    FILLED true
+  END
+
   LAYER
     NAME "postgis-point-auto"
     TYPE POINT
@@ -109,6 +118,19 @@ MAP
         "gml_character_type" "Character"
         "gml_date_type" "Date"
         "gml_boolean_type" "Boolean"
+    END
+    MINSCALEDENOM 5000
+    MAXSCALEDENOM 500000
+    CLASS
+        MINSCALEDENOM 5000
+        MAXSCALEDENOM 50000
+        NAME "Point"
+        STYLE
+            SYMBOL "circle"
+            SIZE 50
+            COLOR 0 255 0
+            OUTLINECOLOR 0 0 255
+        END
     END
   END
 
@@ -256,6 +278,19 @@ MAP
         "gml_date_type" "Date"
         "gml_boolean_type" "Boolean"
     END
+    MINSCALEDENOM 5000
+    MAXSCALEDENOM 500000
+    CLASS
+        MINSCALEDENOM 5000
+        MAXSCALEDENOM 50000
+        NAME "Point"
+        STYLE
+            SYMBOL "circle"
+            SIZE 50
+            COLOR 0 255 0
+            OUTLINECOLOR 0 0 255
+        END
+    END
   END
 
   LAYER
@@ -308,4 +343,65 @@ MAP
     END
   END
 
+  LAYER
+    NAME "wms-point"
+    TYPE Raster
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE wms
+    CONNECTION "http://localhost/mapserv-tests"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
+    METADATA
+        "wms_srs" "EPSG:4326"
+        "wms_name" "postgis-point"
+        "wms_server_version" "1.1.1"
+        "wms_format" "image/png"
+        "ows_title" "WMS client"
+    END
+  END
+
+
+  LAYER
+    NAME "wfs-point"
+    TYPE POINT
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CONNECTIONTYPE wfs
+    CONNECTION "http://localhost/mapserv-tests"
+    EXTENT -10 -10 10 10
+    STATUS ON
+    TEMPLATE dummyTemplateForWmsGetFeatureInfo
+    METADATA
+        "wfs_typename" "postgis-point"
+        "wfs_version" "1.0.0"
+        "ows_title" "Layer éàè"
+        "ows_featureid" "gid"
+        "ows_the_geom_type" "point"
+        "ows_geometries" "the_geom"
+        "gml_include_items" "all"
+        "gml_gid_type" "Integer"
+        "gml_int_type" "Integer"
+        "gml_real_type" "Real"
+        "gml_character_type" "Character"
+        "gml_date_type" "Date"
+        "gml_boolean_type" "Boolean"
+    END
+    MINSCALEDENOM 5000
+    MAXSCALEDENOM 500000
+    CLASS
+        MINSCALEDENOM 5000
+        MAXSCALEDENOM 50000
+        NAME "Point"
+        STYLE
+            SYMBOL "circle"
+            SIZE 50
+            COLOR 0 255 0
+            OUTLINECOLOR 0 0 255
+        END
+    END
+  END
 END
