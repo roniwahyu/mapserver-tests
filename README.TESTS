@@ -9,7 +9,8 @@ See data/README for required data.
 Run tests
 ---------
 
-virtualenv env
+virtualenv --system-site-package env
 ./env/bin/easy_install nose
 ./env/bin/easy_install httplib2
+./env/bin/easy_install PIL
 ./env/bin/nosetests
