@@ -30,7 +30,6 @@ class TestXML(TestCase):
     def _assert_result_equals(self, content, value):
 #        log.info(content)
 #        log.info(value)
-#        for test in zip(unicode(value.decode('utf-8')).split('\n'),
         for test in zip(value.split('\n'),
                 unicode(content.decode('utf-8')).split('\n')):
 #            log.info(test[0])

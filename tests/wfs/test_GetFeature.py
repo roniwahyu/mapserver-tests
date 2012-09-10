@@ -328,3 +328,25 @@ PASS...
             'upperCorner': '2.000000 2.000000',
             'features': result
         })
+
+    def test_cascade(self):
+        REQUETS = (
+            { 'feature': 'postgis-point', 'result': self.FEATURE_RESULT_2 },
+            { 'feature': 'wfs-point', 'result': self.FEATURE_RESULT_2 },
+        )
+        
+        for r in REQUETS:
+            log.info(r['feature'])
+            content = self._post(self.GETFEATURE_REQUEST % {
+                'maxfeatures': 10,
+                'query': self.QUERY % {
+                    'feature': r['feature'],
+                    'function': u'EqualTo',
+                    'arguments': '',
+                    'property': 'int',
+                    'value': '2',
+                }
+            })
+            p = copy(r['result'])
+            p['features'] = p['features'] % {'feature': r['feature'] }
+            self._assert_result_equals(content, self.RESULT % p)

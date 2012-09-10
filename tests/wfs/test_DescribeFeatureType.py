@@ -80,7 +80,8 @@ class TestDescribeFeatureType(TestXML):
         ('shp-polygon-auto', 'Polygon', ELEMENTS_SHP_AUTO),
         ('shp-point', 'Point', ELEMENTS_SHP),
         ('shp-line', 'LineString', ELEMENTS_SHP),
-        ('shp-polygon', 'Polygon', ELEMENTS_SHP)
+        ('shp-polygon', 'Polygon', ELEMENTS_SHP),
+        ('wfs-point', 'Point', ELEMENTS),
     ]
 
     def test_GetCapabilities(self):
