@@ -130,7 +130,7 @@ MAP
         NAME "Point"
         STYLE
             SYMBOL "circle"
-            SIZE 50
+            SIZE 14
             COLOR 0 255 0
             OUTLINECOLOR 0 0 255
         END
@@ -291,7 +291,7 @@ MAP
         NAME "Point"
         STYLE
             SYMBOL "circle"
-            SIZE 50
+            SIZE 14
             COLOR 0 255 0
             OUTLINECOLOR 0 0 255
         END
@@ -404,7 +404,7 @@ MAP
         NAME "Point"
         STYLE
             SYMBOL "circle"
-            SIZE 50
+            SIZE 14
             COLOR 0 255 0
             OUTLINECOLOR 0 0 255
         END
