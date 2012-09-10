@@ -8,8 +8,8 @@ log = logging.getLogger(__name__)
 class TestDescribeFeatureType(TestXML):
     DESCRIBE_FEATURE_TYPE = """<?xml version='1.0' encoding="UTF-8" ?>
 <schema
-   targetNamespace="http://mapserver.gis.umn.edu/mapserver" 
-   xmlns:ms="http://mapserver.gis.umn.edu/mapserver" 
+   targetNamespace="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
    xmlns:ogc="http://www.opengis.net/ogc"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns="http://www.w3.org/2001/XMLSchema"
@@ -19,8 +19,8 @@ class TestDescribeFeatureType(TestXML):
   <import namespace="http://www.opengis.net/gml"
           schemaLocation="http://schemas.opengis.net/gml/2.1.2/feature.xsd" />
 
-  <element name="%(feature)s" 
-           type="ms:%(feature)sType" 
+  <element name="%(feature)s"
+           type="ms:%(feature)sType"
            substitutionGroup="gml:_Feature" />
 
   <complexType name="%(feature)sType">

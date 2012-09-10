@@ -113,7 +113,7 @@ PASS...
             'character': u'abCéàè3',
             'date': 2003,
             'boolean': 'f',
-        }        
+        }
     }
 
 
@@ -166,7 +166,7 @@ PASS...
             'character': u'abCéàè3',
             'date': 2003,
             'boolean': 'F',
-        }        
+        }
     }
 
     # With mapserver 6.0.0 when we do a geom filter and a maxFeatures=1 we don't reseive any features.
@@ -334,7 +334,6 @@ PASS...
             { 'feature': 'postgis-point', 'result': self.FEATURE_RESULT_2 },
             { 'feature': 'wfs-point', 'result': self.FEATURE_RESULT_2 },
         )
-        
         for r in REQUETS:
             log.info(r['feature'])
             content = self._post(self.GETFEATURE_REQUEST % {
