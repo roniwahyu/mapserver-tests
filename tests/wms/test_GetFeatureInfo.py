@@ -147,34 +147,54 @@ class TestGetFeature(TestXML):
 
     # With mapserver 6.0.3 when we do a request on two shapefile we reseive an error 500.
     def test_multiple_feature_type(self):
-        REQUETS = (
-            ('postgis-point-auto', self.FEATURE_RESULT_2),
-            ('postgis-point', self.FEATURE_RESULT_2),
-            ('shp-point-auto', self.FEATURE_SHP_RESULT_2),
-            ('shp-point', self.FEATURE_SHP_RESULT_2),
-        )
-        for r in REQUETS:
-            log.info(r[0])
-            content = self._get((
-                ('SERVICE', 'WMS'),
-                ('VERSION', '1.1.1'),
-                ('REQUEST', 'GetFeatureInfo'),
-                ('LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point'),
-                ('QUERY_LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point'),
-                ('BBOX', '1.99,1.99,2.01,2.01'),
-                ('FEATURE_COUNT', '10'),
-                ('HEIGHT', '500'),
-                ('WIDTH', '500'),
-                ('INFO_FORMAT', 'application/vnd.ogc.gml'),
-                ('SRS', 'EPSG:4326'),
-                ('X', '250'),
-                ('Y', '250')
-            ))
-            features = ''
-            features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point-auto' }
-            features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point' }
-            features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point-auto' }
-            features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point' }
-            self._assert_result_equals(content, self.RESULT % {
-                'features': features
-            })
+        content = self._get((
+            ('SERVICE', 'WMS'),
+            ('VERSION', '1.1.1'),
+            ('REQUEST', 'GetFeatureInfo'),
+            ('LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point,wfs-point'),
+            ('QUERY_LAYERS', 'postgis-point-auto,postgis-point,shp-point-auto,shp-point,wfs-point'),
+            ('BBOX', '1.99,1.99,2.01,2.01'),
+            ('FEATURE_COUNT', '10'),
+            ('HEIGHT', '500'),
+            ('WIDTH', '500'),
+            ('INFO_FORMAT', 'application/vnd.ogc.gml'),
+            ('SRS', 'EPSG:4326'),
+            ('X', '250'),
+            ('Y', '250')
+        ))
+        features = ''
+        features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point-auto' }
+        features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point' }
+        features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point-auto' }
+        features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point' }
+#        features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point' }
+        features += self.FEATURE_RESULT_2 % { 'layer': 'wfs-point' }
+        self._assert_result_equals(content, self.RESULT % {
+            'features': features
+        })
+
+    def test_group(self):
+        content = self._get((
+            ('SERVICE', 'WMS'),
+            ('VERSION', '1.1.1'),
+            ('REQUEST', 'GetFeatureInfo'),
+            ('LAYERS', 'points'),
+            ('QUERY_LAYERS', 'points'),
+            ('BBOX', '1.99,1.99,2.01,2.01'),
+            ('FEATURE_COUNT', '10'),
+            ('HEIGHT', '500'),
+            ('WIDTH', '500'),
+            ('INFO_FORMAT', 'application/vnd.ogc.gml'),
+            ('SRS', 'EPSG:4326'),
+            ('X', '250'),
+            ('Y', '250')
+        ))
+        features = ''
+        features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point-auto' }
+        features += self.FEATURE_RESULT_2 % { 'layer': 'postgis-point' }
+        features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point-auto' }
+        features += self.FEATURE_SHP_RESULT_2 % { 'layer': 'shp-point' }
+        features += self.FEATURE_RESULT_2 % { 'layer': 'wfs-point' }
+        self._assert_result_equals(content, self.RESULT % {
+            'features': features
+        })

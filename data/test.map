@@ -2,7 +2,7 @@ MAP
   NAME "Tests"
   STATUS ON
   EXTENT -10 -10 10 10
-  
+
   WEB
     TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
@@ -29,6 +29,7 @@ MAP
 
   LAYER
     NAME "postgis-point-auto"
+    GROUP "points"
     TYPE POINT
     PROJECTION
       "init=epsg:4326"
@@ -41,6 +42,7 @@ MAP
     TEMPLATE dummyTemplateForWmsGetFeatureInfo
     METADATA
         "ows_title" "Layer éàè"
+        "ows_group_title" "Points group"
         "ows_featureid" "gid"
         "ows_the_geom_type" "point"
         "ows_geometries" "the_geom"
@@ -96,6 +98,7 @@ MAP
 
   LAYER
     NAME "postgis-point"
+    GROUP "points"
     TYPE POINT
     PROJECTION
       "init=epsg:4326"
@@ -196,6 +199,7 @@ MAP
 
   LAYER
     NAME "shp-point-auto"
+    GROUP "points"
     TYPE POINT
     PROJECTION
       "init=epsg:4326"
@@ -257,6 +261,7 @@ MAP
 
   LAYER
     NAME "shp-point"
+    GROUP "points"
     TYPE POINT
     PROJECTION
       "init=epsg:4326"
@@ -366,6 +371,7 @@ MAP
 
   LAYER
     NAME "wfs-point"
+    GROUP "points"
     TYPE POINT
     PROJECTION
       "init=epsg:4326"
