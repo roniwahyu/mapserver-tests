@@ -10,17 +10,21 @@ class TestGetLegendGraphic(TestXML):
     def test_GetLegendGraphic(self):
         QUERY = (
             { 'layer': 'postgis-point', 'scale': 1000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
-            { 'layer': 'postgis-point', 'scale': 10000, 'len': 278, 'md5': 'b1668dc07f78e019ca783b3d10a38b80' },
+            { 'layer': 'postgis-point', 'scale': 10000, 'len': 431, 'md5': '709d85c7094e3203a7c9538cd8a30cf4' },
             { 'layer': 'postgis-point', 'scale': 100000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
             { 'layer': 'postgis-point', 'scale': 1000000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
 #            { 'layer': 'wms-point', 'scale': 1000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' }, TODO assign issue
-            { 'layer': 'wms-point', 'scale': 10000, 'len': 278, 'md5': 'b1668dc07f78e019ca783b3d10a38b80' },
+            { 'layer': 'wms-point', 'scale': 10000, 'len': 431, 'md5': '709d85c7094e3203a7c9538cd8a30cf4' },
 #            { 'layer': 'wms-point', 'scale': 100000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' }, TODO assign issue
 #            { 'layer': 'wms-point', 'scale': 1000000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' }, TODO assign issue
             { 'layer': 'wfs-point', 'scale': 1000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
-            { 'layer': 'wfs-point', 'scale': 10000, 'len': 278, 'md5': 'b1668dc07f78e019ca783b3d10a38b80' },
+            { 'layer': 'wfs-point', 'scale': 10000, 'len': 431, 'md5': '709d85c7094e3203a7c9538cd8a30cf4' },
             { 'layer': 'wfs-point', 'scale': 100000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
             { 'layer': 'wfs-point', 'scale': 1000000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
+            { 'layer': 'points', 'scale': 1000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
+            { 'layer': 'points', 'scale': 10000, 'len': 548, 'md5': '1e85664a2947b1d917f500554ad3cb55' },
+            { 'layer': 'points', 'scale': 100000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
+            { 'layer': 'points', 'scale': 1000000, 'len': 75, 'md5': 'b0dc44728d0988e4e8ccca7f5577f386' },
         )
         results = {}
         for q in QUERY:
